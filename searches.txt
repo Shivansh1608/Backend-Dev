@@ -1,0 +1,2 @@
+[15/1/2026, 4:54:33 pm] Product: Laptop, Price: $50000, Discount: 10%, Final Price: $45000.00
+[16/1/2026, 11:00:04 am] Laptop, 50000, 10%, 45000
