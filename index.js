@@ -3,7 +3,7 @@ const app=express();
 
 
 const student=[
-    {id:1,name:"Shivansh",branch:"cse"},
+    {id:1,name:"Shivansh",branch:"cse",state:"up"},
     {id:2,name:"Aman",branch:"ese"},
     {id:3,name:"ravi",branch:"ml"},
     
@@ -17,27 +17,37 @@ app.get("/user",(req,res)=> {
     res.send("user page");
 })
 
-app.get("/student",(req,res)=>{
-    res.json(student);
-})
+app.get("/student", (req, res) => {
+    const branch = req.query.branch;
 
-app.get("/student/:id", (req, res) => {
-    const id = parseInt(req.params.id); 
-    const result = student.find(s => s.id === id);
+    const foundStudent = student.filter(s => s.branch === branch);
 
-    if (!result) {
-        return res.status(404).json({ message: "Student not found" });
-    }
-
-    res.json(result);
+    res.json(foundStudent);
 });
 
 
+app.get("/student/:id", (req, res) => {
+    const id = Number(req.params.id);
 
+    const studentResult = student.find(s => s.id === id);
 
+    if (!studentResult) {
+        return res.status(404).json({
+            message: "Student not found"
+        });
+    }
 
+    res.json(studentResult);
+});
 
-
+app.post("/student/register",(req,res)=>{
+    const data=req.body;
+    console.log("<<<",req.body);
+    if(!data){
+        return req.status(404).send("user not found!");
+    }
+    res.json(data);
+})
 
 app.listen(8000,(err)=>{
     if(err){
